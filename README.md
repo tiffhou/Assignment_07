@@ -11,7 +11,7 @@ Included files are:
 
     A sample CD Inventory that has been pickled and saved to an external file. After verifying the initial load functionality, use:
     
-        -rm CDInventory.txt
+        rm CDInventory.txt
 
     to test the structured error handling if CDInventory.txt does not exist.
 
