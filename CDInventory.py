@@ -11,6 +11,7 @@
 # THou, 2020-Mar-07, incorporated feedback from mod 6 submission; 
 #   added error handling for initial load, loading from file;
 #   imported the pickle module and implemented in load/save functions
+# THou, 2020-Mar-09, updated docstrings; updated data file to .dat
 #------------------------------------------#
 
 import pickle
@@ -19,7 +20,7 @@ import pickle
 strChoice = '' # User input
 lstTbl = []  # list of lists to hold data
 dicRow = {}  # list of data row
-strFileName = 'CDInventory.txt'  # data storage file
+strFileName = 'CDInventory.dat'  # data storage file
 objFile = None  # file object
 intID = '' #variable to hold a CD ID
 strTitle = '' #variable to hold a CD title
@@ -52,9 +53,10 @@ class DataProcessor:
         
         Args:
             delID (int): the ID inputted by the user for the entry to be deleted
+            table (list): the current inventory list
         
         Return:
-            None
+            table (list): the updated inventory list
         """
         intRowNr = -1
         blnCDRemoved = False
@@ -72,7 +74,7 @@ class DataProcessor:
 
     @staticmethod
     def generate_id(inv_table):
-        """Generates a CD ID based on lstTbl length. Checks for and increments until CD ID is a unique value.
+        """Generates a CD ID based on lstTbl length. Starts at 1 and increments until CD ID is a unique value.
         
         Args:
             inv_table (list): the current inventory list
@@ -109,17 +111,14 @@ class FileProcessor:
 
     @staticmethod
     def read_file(file_name, table):
-        """Function to manage data ingestion from file to a list of dictionaries
-        
-        Reads the data from file identified by file_name into a 2D table
-        (list of dicts) table one line in the file represents one dictionary row in table.
+        """Attempts to load and unpickle a 2D list of dictionaries from the data file
         
         Args:
             file_name (string): name of file used to read the data from
             table (list of dict): 2D data structure (list of dicts) that holds the data during runtime
         
         Returns:
-            None.
+            table (list): the updated inventory table
         """
         try:
             with open(file_name, 'rb') as fileObj:
@@ -136,7 +135,9 @@ class FileProcessor:
 
     @staticmethod
     def write_file(file_name, table):
-        """Write the lstTbl in inventory to the text file.
+        """Attempts to write the lstTbl in inventory to the data file via pickling.
+        
+        Includes error processing.
         
         Args:
             file_name (str): the name of the file we are saving to
